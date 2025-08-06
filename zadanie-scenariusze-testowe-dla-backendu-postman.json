@@ -1,0 +1,479 @@
+{
+  "info": {
+    "name": "eBook Rental – Backend Tests",
+    "description": "Scenariusze testowe backendu wypożyczalni eBooków.\nZawiera przykłady requestów do każdego endpointu zgodnie ze specyfikacją i Twoją tabelą testową.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Logowanie / Rejestracja użytkownika",
+      "item": [
+        {
+          "name": "Rejestracja nowego użytkownika",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"jan.kowalski\",\n  \"password\": \"Test123!\",\n  \"email\": \"jan@kowalski.pl\"\n}"
+            },
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/users/register",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "users",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rejestracja z brakującymi polami",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"jan.kowalski\"\n}"
+            },
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/users/register",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "users",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logowanie poprawne",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"jan.kowalski\",\n  \"password\": \"Test123!\"\n}"
+            },
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/users/login",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logowanie złe hasło",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"jan.kowalski\",\n  \"password\": \"ZłeHasło!\"\n}"
+            },
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/users/login",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Lista tytułów",
+      "item": [
+        {
+          "name": "Pobranie listy tytułów",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/books",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "books"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Dodanie nowego tytułu",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": \"Adam Mickiewicz\",\n  \"title\": \"Pan Tadeusz\",\n  \"year\": 1834\n}"
+            },
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/books",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "books"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Edycja istniejącego tytułu",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": \"Adam Mickiewicz\",\n  \"title\": \"Dziady\",\n  \"year\": 1823\n}"
+            },
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/books/1",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "books",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Usunięcie tytułu",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/books/1",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "books",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lista egzemplarzy",
+      "item": [
+        {
+          "name": "Pobranie egzemplarzy książki",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/books/1/copies",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "books",
+                "1",
+                "copies"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Dodanie egzemplarza",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"purchaseDate\": \"2024-01-05\",\n  \"status\": \"AVAILABLE\"\n}"
+            },
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/books/1/copies",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "books",
+                "1",
+                "copies"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Edycja egzemplarza",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"purchaseDate\": \"2024-01-05\",\n  \"status\": \"RENTED\"\n}"
+            },
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/copies/10",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "copies",
+                "10"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Usunięcie egzemplarza",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/copies/10",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "copies",
+                "10"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lista wypożyczeń",
+      "item": [
+        {
+          "name": "Pobranie wypożyczeń egzemplarza",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/copies/10/loans",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "copies",
+                "10",
+                "loans"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Dodanie wypożyczenia",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientName\": \"Anna Nowak\",\n  \"startDate\": \"2024-08-01\",\n  \"endDate\": \"2024-08-04\"\n}"
+            },
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/copies/10/loans",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "copies",
+                "10",
+                "loans"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Edycja wypożyczenia",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientName\": \"Anna Nowak\",\n  \"startDate\": \"2024-08-02\",\n  \"endDate\": \"2024-08-08\"\n}"
+            },
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/loans/5",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "loans",
+                "5"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Usunięcie wypożyczenia",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/loans/5",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "loans",
+                "5"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Autoryzacja i dostęp",
+      "item": [
+        {
+          "name": "Dostęp bez tokena",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/books",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "books"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Dostęp z niepoprawnym tokenem",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer FAKE_TOKEN" }
+            ],
+            "url": {
+              "raw": "https://ta-ebookrental-be-kodillaedu.replit.app/books",
+              "protocol": "https",
+              "host": [
+                "ta-ebookrental-be-kodillaedu",
+                "replit",
+                "app"
+              ],
+              "path": [
+                "books"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
